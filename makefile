@@ -1,7 +1,8 @@
 CC = g++
 SRCDIR = src
 BUILDDIR = build
-TARGET = bin/main.exe
+TARGETDIR = bin
+TARGET = $(TARGETDIR)/main.exe
 
 SRCEXT = cpp
 SOURCES = $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
@@ -13,6 +14,7 @@ clean:
 	rm -f $(TARGET)
 
 $(TARGET): $(OBJECTS)
+	@mkdir -p $(TARGETDIR)
 	$(CC) $^ -o $(TARGET)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
