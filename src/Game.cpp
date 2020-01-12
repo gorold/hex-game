@@ -1,37 +1,45 @@
 #include "Game.hpp"
 
-Game::Game(int size, bool ai) : board(size) {
+Game::Game(int size, bool ai, int num_trials) : size(size), board(size) {
     if (ai) {
-        MonteCarloAI agent{1};
+        agent = new MonteCarloAI(size, num_trials);
     }
 }
 
 void Game::start() {
-    turn = TurnType::W_START;
+    turn = TurnType::W_TURN;
     bool w_win = false, b_win = false;
     while (!(w_win || b_win)) {
-        cout << board;
+        if (!(agent != nullptr && turn == TurnType::B_TURN))
+            cout << board;
         int i, j;
         bool swap_move;
         switch (turn) {
-            case TurnType::W_START:
-                cout << "White start, please choose a tile to play." << endl;
-                cout << "i: "; cin >> i;
-                cout << "j: "; cin >> j;
-                break;
-            case TurnType::B_START:
-                cout << "Black start, would you like to swap with White? (1/0)" << endl;
-                cin >> swap_move;
-                break;
+            // case TurnType::W_START:
+            //     cout << "White start, please choose a tile to play." << endl;
+            //     cout << "i: "; cin >> i;
+            //     cout << "j: "; cin >> j;
+            //     break;
+            // case TurnType::B_START:
+            //     cout << "Black start, would you like to swap with White? (1/0)" << endl;
+            //     cin >> swap_move;
+            //     break;
             case TurnType::W_TURN:
                 cout << "White turn, please choose a tile to play." << endl;
                 cout << "i: "; cin >> i;
                 cout << "j: "; cin >> j;
                 break;
             case TurnType::B_TURN:
-                cout << "Black turn, please choose a tile to play." << endl;
-                cout << "i: "; cin >> i;
-                cout << "j: "; cin >> j;
+                if (agent == nullptr) {
+                    cout << "Black turn, please choose a tile to play." << endl;
+                    cout << "i: "; cin >> i;
+                    cout << "j: "; cin >> j;
+                } else {
+                    pair<TurnType, vector<pair<HexTile, vector<int>>>> game_state = get_game_state();
+                    int agent_move = agent -> get_agent_move(game_state.first, game_state.second);
+                    i = agent_move / size;
+                    j = agent_move % size;
+                }
                 break;
                 
         }
@@ -99,4 +107,8 @@ void Game::b_turn(int i, int j) {
     } else {
         cout << "Not a valid move." << endl;
     }
+}
+
+pair<TurnType, vector<pair<HexTile, vector<int>>>> Game::get_game_state() {
+    return make_pair(turn, board.get_edge_list());
 }

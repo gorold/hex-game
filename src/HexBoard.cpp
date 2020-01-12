@@ -89,3 +89,7 @@ bool HexBoard::is_connected(HexTile player) {
     }
     return false;
  }
+
+vector<pair<HexTile, vector<int>>> HexBoard::get_edge_list() {
+    return this -> graph.get_edge_list();
+}

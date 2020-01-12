@@ -111,3 +111,7 @@ pair<HexTile, vector<int>> HexGraph::get(int i, int j) {
 void HexGraph::set(int i, int j, HexTile tile) {
     edge_list[size * i + j].first = tile;
 }
+
+vector<pair<HexTile, vector<int>>> HexGraph::get_edge_list() {
+    return this -> edge_list;
+}

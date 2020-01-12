@@ -18,6 +18,7 @@ class HexBoard {
     bool replace_tile(int i, int j);
     bool is_connected(HexTile player);
     friend ostream& operator<<(ostream& out, HexBoard& board);
+    vector<pair<HexTile, vector<int>>> get_edge_list();
     
   private:
     int size;

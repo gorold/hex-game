@@ -15,6 +15,7 @@ class HexGraph {
     pair<HexTile, vector<int>> get(int idx);
     pair<HexTile, vector<int>> get(int i, int j);
     void set(int i, int j, HexTile tile);
+    vector<pair<HexTile, vector<int>>> get_edge_list();
     
   protected:
     int size;
