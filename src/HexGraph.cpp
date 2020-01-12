@@ -45,10 +45,12 @@ void HexGraph::create_node(int i, int j) {
         // Top right
         edge_list[idx].second.push_back(size * (i + 1) + j);
         edge_list[idx].second.push_back(size * i + (j - 1));
+        edge_list[idx].second.push_back(size * (i + 1) + (j - 1));
     } else if (i == size - 1 && j == 0) {
         // Bottom left
         edge_list[idx].second.push_back(size * (i - 1) + j);
         edge_list[idx].second.push_back(size * i + (j + 1));
+        edge_list[idx].second.push_back(size * (i - 1) + (j + 1));
     } else if (i == 0) {
         // Top row
         edge_list[idx].second.push_back(size * i + (j + 1));
