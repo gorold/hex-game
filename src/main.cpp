@@ -8,6 +8,6 @@ int main()
 {
     int board_size;
     cout << "Please choose your board size: "; cin >> board_size; cout << endl;
-    Game game{board_size, true, 1000};
+    Game game{board_size, true, 50000};
     game.start();
 }

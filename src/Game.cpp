@@ -47,6 +47,7 @@ void Game::start() {
         w_win = board.is_connected(HexTile::WHITE);
         b_win = board.is_connected(HexTile::BLACK);
     }
+    cout << board << endl;
     if (w_win) {
         cout << "Congratulations, White wins!" << endl;
     } else if (b_win) {
